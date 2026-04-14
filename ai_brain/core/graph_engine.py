@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from ai_brain.core.analyzer import extract_file_description, get_directory_description
+from ai_brain.core.analyzer import extract_file_metadata, get_directory_description
 
 # Directories and files that should never be scanned
 IGNORED_DIRS = {".git", "node_modules", "venv", "__pycache__", "backups", ".ai-brain", ".idea", ".vscode", ".venv"}
@@ -9,7 +9,7 @@ IGNORED_FILES = {".DS_Store", "global.db", "__init__.py"}
 def scan_directory(project_root: str, deep_scan: bool = False) -> dict:
     """
     Recursively scan directory to build a graph.
-    If deep_scan is True, it will read file contents to generate descriptions.
+    If deep_scan is True, it will read file contents to generate metadata.
     """
     base_path = Path(project_root)
     # The root of the graph
@@ -41,9 +41,18 @@ def scan_directory(project_root: str, deep_scan: bool = False) -> dict:
         for f in filenames:
             if f not in IGNORED_FILES:
                 file_path = Path(dirpath) / f
-                current_node["children"][f] = {
-                    "_type": "file",
-                    "_desc": extract_file_description(file_path) if deep_scan else "File"
-                }
+                if deep_scan:
+                    metadata = extract_file_metadata(file_path)
+                    current_node["children"][f] = {
+                        "_type": "file",
+                        "_desc": metadata["description"],
+                        "_symbols": metadata["symbols"],
+                        "_category": metadata["category"]
+                    }
+                else:
+                    current_node["children"][f] = {
+                        "_type": "file",
+                        "_desc": "File"
+                    }
                 
     return graph

@@ -2,18 +2,20 @@
 
 A "Persistent Long-Term Memory" and "Stateful Backup" system for developers working with AI.
 
-AI-Brain solves the "Context Drift" problem. It maintains a "Project Passport" that tracks the visual and logical structure of a project, so any LLM (ChatGPT, Claude) can instantly resume work without re-explaining the codebase.
+AI-Brain solves the "Context Drift" problem. It maintains a **Project Passport** with a logical **Symbol Map** that tracks the structure, classes, and logic of a project, so any LLM (ChatGPT, Claude, Cursor) can instantly resume work without re-explaining the codebase.
 
-## Features
+## 🚀 Features
 
-- **Project Registration:** Keep track of all your AI-assisted projects globally.
-- **Graph Scanning:** Maps out your directory structure into a JSON graph.
-- **Stateful Backups:** Automatically zip and backup your codebase without `.git` or `node_modules` clutter.
-- **Context Generation:** Generates an easy-to-copy Markdown summary of your project and recent history for prompt injection.
+- **Project Registration:** Keep track of all your AI-assisted projects globally in a local database.
+- **Symbol Map Scanning:** Automatically detects classes, functions, and logic in PHP, Python, JS, and TS.
+- **Intelligent Categorization:** Groups code into [MODELS], [CTRLS], [SERVICES], and [HELPERS] for better AI orientation.
+- **Stateful Backups:** Automatically zip and backup your codebase, ignoring heavy folders like `node_modules` or `.venv`.
+- **AI Rule Generation:** Automatically creates `.cursorrules` and `.clauderules` to make AI assistants "aware" of the project structure.
+- **Condensed Context:** Generates an optimized, terminal-safe Markdown summary of your project for prompt injection.
 
-## Installation
+## 📦 Installation
 
-Ensure you have Python 3.10+ installed.
+Ensure you have **Python 3.10+** installed.
 
 Clone this repository or navigate to its directory, then run:
 
@@ -23,7 +25,7 @@ pip install -e .
 
 This will install the `aib` command globally on your system.
 
-## Usage
+## 🛠️ Usage
 
 Navigate to any coding project you want to track:
 
@@ -31,38 +33,47 @@ Navigate to any coding project you want to track:
 cd /path/to/your/project
 ```
 
-### Initialize
+### 1. Initialize
 ```bash
 aib init
 ```
 Initializes AI-Brain for the current folder. Prompts you for a project name.
 
-### Sync State
-```bash
-aib sync
-```
-Scans the current files, updates the local project graph map, and asks you for a brief "session summary" (e.g., "Added login module") to append to the project history.
-
-### Deep Analysis
+### 2. Deep Analysis (Symbol Map)
 ```bash
 aib analyze
 ```
-Deeply scans the project structure and automatically extracts a brief description for every file and directory to provide even better context for the AI.
+Deeply scans the project structure and extracts symbols (classes, methods). This is the key to providing high-quality context to AI models.
 
-### Backup
+### 3. Sync State
 ```bash
-aib backup
+aib sync
 ```
-Creates a compressed ZIP snapshot of the current state and saves it in a `backups/` directory inside your project, ignoring heavy folders like `node_modules` or `.venv`.
+Updates the local project map and asks for a brief "session summary" (e.g., "Implemented login validation") to maintain the project's long-term memory.
 
-### Inject Context
+### 4. AI Rules
+```bash
+aib rules
+```
+Generates `.cursorrules`, `.clauderules`, and `AI_INSTRUCTIONS.md` files. This tells AI assistants (like Cursor or Claude) to automatically look for AI-Brain metadata.
+
+### 5. Inject Context
 ```bash
 aib inject
 ```
-Outputs a formatted Markdown block containing the entire project architecture and recent changes. Copy this block and paste it into ChatGPT/Claude at the start of a new session so it instantly knows your project context!
+Outputs a condensed Markdown block containing the project architecture and recent changes. Copy-paste this into your AI session to give it an instant "brain transplant" of your project!
 
-### List Projects
+### 6. Backup
+```bash
+aib backup
+```
+Creates a compressed ZIP snapshot of the current state, ignoring heavy system folders.
+
+### 7. List Projects
 ```bash
 aib list
 ```
-Shows a comprehensive table of all projects managed by AI-Brain globally across your system, along with their last update status.
+Shows all tracked projects globally on your system.
+
+---
+*Built to eliminate context drift and accelerate AI-assisted development.*
