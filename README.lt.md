@@ -1,52 +1,66 @@
-🧠 AI-Brain
+# 🧠 AI-Brain
+
 „Ilgalaikės atminties“ ir „būsenos atsarginių kopijų“ sistema programuotojams, dirbantiems su AI.
 
-„AI-Brain“ išsprendžia „konteksto praradimo“ (angl. Context Drift) problemą. Sistema palaiko „Projekto pasą“, kuris seka vizualinę ir loginę projekto struktūrą, todėl bet koks didysis kalbos modelis (ChatGPT, Claude) gali akimirksniu tęsti darbą be pakartotinio kodo aiškinimo.
+„AI-Brain“ išsprendžia „konteksto praradimo“ (angl. *Context Drift*) problemą. Sistema palaiko „Projekto pasą“, kuris seka vizualinę ir loginę projekto struktūrą, todėl bet koks didysis kalbos modelis (ChatGPT, Claude) gali akimirksniu tęsti darbą be pakartotinio kodo aiškinimo.
 
-Funkcijos
-Projektų registracija: sekite visus savo AI pagalba kuriamus projektus vienoje vietoje.
+## 🚀 Funkcijos
 
-Grafinis skenavimas: atvaizduoja jūsų katalogų struktūrą JSON grafiko pavidalu.
+*   **Projektų registracija:** Sekite visus savo AI pagalba kuriamus projektus vienoje vietoje (globali duomenų bazė).
+*   **Grafinis skenavimas:** Automatiškai atvaizduoja jūsų katalogų struktūrą į loginį JSON grafiką.
+*   **Būsenos atsarginės kopijos:** Generuoja suglaustas (ZIP) kodo kopijas, automatiškai ignoruodama sunkius aplankus (`node_modules`, `.git`, `.venv`).
+*   **Context Generation:** Sukuria specialią santrauką, skirtą įkelti į AI užklausą (*Prompt Injection*), kad asistentas iškart „suprastų“ visą projektą.
 
-Būsenos atsarginės kopijos: automatiškai suglaudina (zip) ir daro kodo kopijas be .git ar node_modules šiukšlių.
+## 📦 Diegimas
 
-Konteksto generavimas: sukuria lengvai nukopijuojamą „Markdown“ santrauką apie projektą ir naujausią istoriją, skirtą įkelti į AI užklausą (prompt injection).
+Įsitikinkite, kad jūsų kompiuteryje įdiegtas **Python 3.10+**.
 
-Diegimas
-Įsitikinkite, kad turite įdiegtą Python 3.10+.
+1. Klonuokite šią saugyklą arba eikite į jos katalogą.
+2. Paleiskite diegimo komandą:
 
-Klonuokite šią saugyklą, eikite į jos katalogą ir paleiskite:
-
-Bash
+```bash
 pip install -e .
-Tai įdiegs aib komandą jūsų sistemoje globaliai.
+```
 
-Naudojimas
-Eikite į bet kurį programavimo projektą, kurį norite sekti:
+Po šios komandos `aib` įrankis taps pasiekiamas bet kuriame jūsų terminalo lange.
 
-Bash
+## 🛠️ Naudojimas
+
+Navigate to any coding project you want to track:
+
+```bash
 cd /kelias/iki/jūsų/projekto
-Inicijavimas (Initialize)
-Bash
+```
+
+### 1. Inicijavimas (Initialize)
+```bash
 aib init
-Paruošia „AI-Brain“ darbui esamame aplanke. Paprašys nurodyti projekto pavadinimą.
+```
+Sukuriamas `.ai-brain` aplankas ir užregistruojamas naujas projektas sistemoje.
 
-Būsenos sinchronizavimas (Sync State)
-Bash
+### 2. Būsenos sinchronizavimas (Sync State)
+```bash
 aib sync
-Nuskanuoja esamus failus, atnaujina vietinį projekto struktūros žemėlapį ir paprašo trumpo „sesijos apibendrinimo“ (pvz., „Pridėtas prisijungimo modulis“), kuris įtraukiamas į projekto istoriją.
+```
+Atnaujinamas projekto struktūros žemėlapis ir įrašoma trumpa darbų istorija (log'as).
 
-Atsarginė kopija (Backup)
-Bash
+### 3. Atsarginė kopija (Backup)
+```bash
 aib backup
-Sukuria suglaustą (ZIP) esamos būsenos momentinę kopiją ir išsaugo ją projekto viduje esančiame backups/ kataloge, ignoruodama sunkius aplankus, tokius kaip node_modules ar .venv.
+```
+Sukuria momentinę kodo kopiją `backups/` aplanke. Saugus būdas eksperimentuoti su AI generuojamu kodu.
 
-Konteksto įterpimas (Inject Context)
-Bash
+### 4. Konteksto įterpimas (Inject Context)
+```bash
 aib inject
-Išveda suformatuotą „Markdown“ bloką, kuriame yra visa projekto architektūra ir naujausi pakeitimai. Nukopijuokite šį bloką ir įklijuokite į ChatGPT/Claude naujos sesijos pradžioje – AI iškart žinos jūsų projekto kontekstą!
+```
+Išveda suformatuotą tekstą. Jį tiesiog nukopijuokite ir įklijuokite į savo pokalbį su ChatGPT ar Claude sesijos pradžioje.
 
-Projektų sąrašas (List Projects)
-Bash
+### 5. Projektų sąrašas (List Projects)
+```bash
 aib list
-Parodo išsamią lentelę su visais jūsų sistemoje „AI-Brain“ valdomais projektais ir jų paskutinio atnaujinimo būseną.
+```
+Parodo visų jūsų kompiuteryje esančių projektų sąrašą ir jų būsenas.
+
+---
+*Sukurta siekiant pagreitinti darbą su dirbtiniu intelektu ir išvengti klaidų dėl konteksto trūkumo.*
