@@ -3,7 +3,7 @@ import click
 from datetime import datetime
 from rich.prompt import Prompt
 
-from ai_brain.utils.display import print_header, print_success, print_error, print_info, create_table, render_table, print_markdown
+from ai_brain.utils.display import console, print_header, print_success, print_error, print_info, create_table, render_table, print_markdown
 from ai_brain.core.brain_manager import initialize_project
 from ai_brain.core.graph_engine import scan_directory
 from ai_brain.core.snapshot_service import create_snapshot
@@ -72,9 +72,25 @@ def inject():
     context = generate_context_string(cwd)
     
     print_info("=== START CONTEXT STRING ===\n")
-    print(context)  # We print raw so it can be easily copied/piped
+    console.print(context, highlight=False)  # Rich handles encoding better than raw print
     print("\n")
     print_info("=== END CONTEXT STRING ===")
+
+@cli.command()
+def analyze():
+    """Deep scan to generate descriptions for files and directories."""
+    print_header()
+    cwd = os.getcwd()
+    
+    if not is_initialized(cwd):
+        print_error("Project not initialized. Run 'aib init' first.")
+        return
+        
+    print_info("Analyzing project structure and extracting descriptions...")
+    graph = scan_directory(cwd, deep_scan=True)
+    save_graph(cwd, graph)
+    
+    print_success("Project analysis complete. Descriptions saved.")
 
 @cli.command()
 def list():

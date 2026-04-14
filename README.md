@@ -43,6 +43,12 @@ aib sync
 ```
 Scans the current files, updates the local project graph map, and asks you for a brief "session summary" (e.g., "Added login module") to append to the project history.
 
+### Deep Analysis
+```bash
+aib analyze
+```
+Deeply scans the project structure and automatically extracts a brief description for every file and directory to provide even better context for the AI.
+
 ### Backup
 ```bash
 aib backup

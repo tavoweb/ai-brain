@@ -44,7 +44,13 @@ aib sync
 ```
 Atnaujinamas projekto struktūros žemėlapis ir įrašoma trumpa darbų istorija (log'as).
 
-### 3. Atsarginė kopija (Backup)
+### 3. Gilesnė analizė (Deep Analysis)
+```bash
+aib analyze
+```
+Giliai nuskenuoja projekto struktūrą ir automatiškai sugeneruoja trumpus aprašymus kiekvienam failui bei katalogui, užtikrinant dar geresnį kontekstą AI asistentui.
+
+### 4. Atsarginė kopija (Backup)
 ```bash
 aib backup
 ```

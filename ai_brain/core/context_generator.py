@@ -2,14 +2,26 @@ import json
 from ai_brain.storage.local_state import load_config, load_history, load_graph
 
 def _format_tree(node: dict, indent=""):
-    """Format the graph tree into a string."""
+    """Format the graph tree into a string with descriptions."""
     result = ""
-    for key, val in node.items():
-        if isinstance(val, dict):
-            result += f"{indent}📂 {key}/\n"
-            result += _format_tree(val, indent + "  ")
+    # In the new structure, children are under the "children" key
+    children = node.get("children", {})
+    
+    # Sort children to show directories first, then files
+    sorted_items = sorted(children.items(), key=lambda item: (item[1].get("_type") != "directory", item[0]))
+
+    for name, metadata in sorted_items:
+        _type = metadata.get("_type", "file")
+        _desc = metadata.get("_desc", "")
+        
+        desc_str = f" - {(_desc[:100] + '...') if len(_desc) > 100 else _desc}" if _desc and _desc not in ["File", "Directory"] else ""
+
+        if _type == "directory":
+            result += f"{indent}[DIR] {name}/{desc_str}\n"
+            result += _format_tree(metadata, indent + "  ")
         else:
-            result += f"{indent}📄 {key}\n"
+            result += f"{indent}[FILE] {name}{desc_str}\n"
+            
     return result
 
 def generate_context_string(project_root: str) -> str:
