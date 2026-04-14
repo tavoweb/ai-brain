@@ -80,11 +80,26 @@ def extract_file_metadata(file_path: Path) -> dict:
                     match = re.search(pattern, line)
                     if match:
                         name = _to_ascii(match.group(1))
-                        # Try to find a docblock before this line
+                        
+                        # Try to find a docblock or meaningful comment before this line
                         sym_desc = ""
-                        for j in range(i-1, max(-1, i-5), -1):
+                        code_keywords = {
+                            "return", "public", "private", "protected", "if ", "else", 
+                            "while", "for ", "foreach", "switch", "case", "break", 
+                            "continue", "echo", "print", "{", "}", "<?php", "namespace", "use "
+                        }
+                        
+                        for j in range(i-1, max(-1, i-7), -1):
                             prev_line = _to_ascii(lines[j]).strip().lstrip("/*# \t-")
-                            if prev_line and prev_line[0].isalpha() and not any(k.lower() in prev_line.lower() for k in skip_keywords):
+                            
+                            # Skip empty lines or lines that look like code
+                            if not prev_line:
+                                continue
+                            
+                            if any(k in prev_line.lower() for k in code_keywords):
+                                continue
+                                
+                            if prev_line[0].isalpha() or prev_line.startswith("@"):
                                 sym_desc = prev_line[:80]
                                 break
                         

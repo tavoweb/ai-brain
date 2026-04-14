@@ -3,7 +3,12 @@ from pathlib import Path
 from ai_brain.core.analyzer import extract_file_metadata, get_directory_description
 
 # Directories and files that should never be scanned
-IGNORED_DIRS = {".git", "node_modules", "venv", "__pycache__", "backups", ".ai-brain", ".idea", ".vscode", ".venv"}
+IGNORED_DIRS = {
+    ".git", "node_modules", "vendor", "storage", "backups", "dist", "build", 
+    ".ai-brain", ".idea", ".vscode", ".venv", "venv", "__pycache__", 
+    ".next", "out", "public/build", "temp_backup", "temp", "tmp", "logs", "cache",
+    "bower_components"
+}
 IGNORED_FILES = {".DS_Store", "global.db", "__init__.py"}
 
 def scan_directory(project_root: str, deep_scan: bool = False) -> dict:
