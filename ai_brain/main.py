@@ -72,7 +72,7 @@ def inject():
     context = generate_context_string(cwd)
     
     print_info("=== START CONTEXT STRING ===\n")
-    console.print(context, highlight=False)  # Rich handles encoding better than raw print
+    console.print(context, highlight=False, markup=False)  # Disable markup to avoid errors with brackets in descriptions
     print("\n")
     print_info("=== END CONTEXT STRING ===")
 
